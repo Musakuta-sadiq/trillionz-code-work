@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mocktails by Aabuu - Complete Order System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍹</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-content">
+                <h1>Mocktails by Aabuu 🍹</h1>
+                <p class="tagline">Premium non-alcoholic beverages for every occasion</p>
+                <div class="status-badge">
+                    <i class="fas fa-sync-alt"></i> Auto-saves to Microsoft Excel
+                </div>
+            </div>
+        </div>
+        
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <div class="steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Customer Info</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Order Details</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Delivery Info</div>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Review & Submit</div>
+                    </div>
+                </div>
+                
+                <div class="menu-section">
+                    <h3><i class="fas fa-cocktail"></i> Mocktail Menu</h3>
+                    <div class="menu-item">
+                        <span>Tropical Sunrise</span>
+                        <span class="price">N500</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Berry Bliss</span>
+                        <span class="price">N450</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Minty Mojito</span>
+                        <span class="price">N650</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Citrus Splash</span>
+                        <span class="price">N700</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Coconut Dream</span>
+                        <span class="price">N800</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Sparkling Royale</span>
+                        <span class="price">N900</span>
+                    </div>
+                </div>
+                
+                <div class="menu-section">
+                    <h3><i class="fas fa-info-circle"></i> Delivery Info</h3>
+                    <p style="font-size: 0.9rem; color: var(--gray);">
+                        <i class="fas fa-truck"></i> Free delivery on orders over N15000<br>
+                        <i class="fas fa-clock"></i> 48 hours notice required<br>
+                        <i class="fas fa-pound-sign"></i> Standard fee: N1000
+                    </p>
+                </div>
+            </div>
+            
+            <!-- FORM AREA -->
+            <div class="form-area">
+                <!-- STEP 1: CUSTOMER INFO -->
+                <div class="form-section active" id="step1">
+                    <h2><i class="fas fa-user"></i> Customer Information</h2>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="full-name" class="required">Full Name</label>
+                            <input type="text" id="full-name" placeholder="Enter your full name">
+                            <div class="error-message" id="name-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="required">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="07123 456789">
+                            <div class="error-message" id="phone-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" placeholder="your.email@example.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="instagram">Instagram Handle</label>
+                            <input type="text" id="instagram" placeholder="@username">
+                        </div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <div></div>
+                        <button class="btn btn-next" onclick="nextStep(2)">
+                            Next Step <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- STEP 2: ORDER DETAILS -->
+                <div class="form-section" id="step2">
+                    <h2><i class="fas fa-list-alt"></i> Order Details</h2>
+                    
+                    <div class="items-table-container">
+                        <table class="items-table" id="order-table">
+                            <thead>
+                                <tr>
+                                    <th>Mocktail</th>
+                                    <th>Quantity</th>
+                                    <th>Price (N)</th>
+                                    <th>Total (N)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="order-items">
+                                <tr>
+                                    <td>
+                                        <select class="item-name" onchange="updateItemPrice(this)">
+                                            <option value="">Select mocktail</option>
+                                            <option value="Tropical Sunrise" data-price="500">Tropical Sunrise</option>
+                                            <option value="Berry Bliss" data-price="450">Berry Bliss</option>
+                                            <option value="Minty Mojito" data-price="650">Minty Mojito</option>
+                                            <option value="Citrus Splash" data-price="700">Citrus Splash</option>
+                                            <option value="Coconut Dream" data-price="800">Coconut Dream</option>
+                                            <option value="Sparkling Royale" data-price="900">Sparkling Royale</option>
+                                            <option value="custom">Custom Order</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="number" class="item-qty" min="1" value="1" onchange="calculateTotals()"></td>
+                                    <td><input type="text" class="item-price" placeholder="N0.00" readonly></td>
+                                    <td class="item-total">N0.00</td>
+                                    <td>
+                                        <button class="remove-btn" onclick="removeItemRow(this)" disabled>
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <button type="button" class="add-item-btn" onclick="addItemRow()">
+                            <i class="fas fa-plus"></i> Add Another Item
+                        </button>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="btn btn-prev" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn btn-next" onclick="nextStep(3)">
+                            Next Step <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- STEP 3: DELIVERY INFO -->
+                <div class="form-section" id="step3">
+                    <h2><i class="fas fa-truck"></i> Delivery Information</h2>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="event-type">Event Type</label>
+                            <select id="event-type">
+                                <option value="">Select event type</option>
+                                <option value="Birthday Party">Birthday Party</option>
+                                <option value="Wedding">Wedding</option>
+                                <option value="Corporate Event">Corporate Event</option>
+                                <option value="Baby Shower">Baby Shower</option>
+                                <option value="Graduation">Graduation</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="event-date">Event Date</label>
+                            <input type="date" id="event-date">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="delivery-date" class="required">Delivery Date</label>
+                            <input type="date" id="delivery-date" required>
+                            <div class="error-message" id="delivery-date-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="delivery-time" class="required">Delivery Time</label>
+                            <input type="text" id="delivery-time" placeholder="e.g., 2:00 PM" required>
+                            <div class="error-message" id="delivery-time-error"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="delivery-address" class="required">Delivery Address</label>
+                        <textarea id="delivery-address" rows="4" placeholder="Full address including postcode..." required></textarea>
+                        <div class="error-message" id="address-error"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="special-requests">Special Requests / Notes</label>
+                        <textarea id="special-requests" rows="3" placeholder="Any specific instructions, dietary requirements, or special requests..."></textarea>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="btn btn-prev" onclick="prevStep(2)">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn btn-next" onclick="nextStep(4)">
+                            Next Step <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- STEP 4: REVIEW & SUBMIT -->
+                <div class="form-section" id="step4">
+                    <h2><i class="fas fa-check-circle"></i> Review & Submit</h2>
+                    
+                    <div class="form-group">
+                        <label for="payment-method" class="required">Payment Method</label>
+                        <select id="payment-method" required>
+                            <option value="">Select payment method</option>
+                            <option value="Cash">Cash on Delivery</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                            <option value="Card">Card Payment</option>
+                        </select>
+                        <div class="error-message" id="payment-error"></div>
+                    </div>
+                    
+                    <div class="totals-box">
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">N0.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Delivery Fee:</span>
+                            <span id="delivery-fee">N1000</span>
+                        </div>
+                        <div class="total-row grand-total">
+                            <span>Total Amount:</span>
+                            <span id="total-amount">N1000</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signature" class="required">Signature</label>
+                        <input type="text" id="signature" placeholder="Type your full name to confirm this order" required>
+                        <div class="error-message" id="signature-error"></div>
+                        <small style="color: var(--gray); margin-top: 5px; display: block;">
+                            By signing, you agree to our Terms & Conditions
+                        </small>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="btn btn-prev" onclick="prevStep(3)">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn btn-submit" onclick="submitOrder()">
+                            <i class="fas fa-paper-plane"></i> Submit to Microsoft Forms
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- SUCCESS SCREEN -->
+                <div class="success-screen" id="success-screen">
+                    <div class="success-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    
+                    <h2>Order Successfully Prepared! 🎉</h2>
+                    <p>Your order is ready to be submitted to Microsoft Forms.</p>
+                    
+                    <div class="order-id" id="order-id-display">AB-2024-001</div>
+                    
+                    <div class="instructions-box">
+                        <h3><i class="fas fa-clipboard-list"></i> Next Steps</h3>
+                        <ol style="padding-left: 20px; margin: 15px 0;">
+                            <li style="margin-bottom: 10px;">Click "Copy Form Data" below</li>
+                            <li style="margin-bottom: 10px;">Click "Open Microsoft Form" to go to the form</li>
+                            <li style="margin-bottom: 10px;">Paste each piece of data into the correct field</li>
+                            <li>Click "Submit" on the Microsoft Form</li>
+                        </ol>
+                        <p style="color: var(--secondary); font-weight: 600; margin-top: 15px;">
+                            <i class="fas fa-info-circle"></i> The form will automatically save to Excel!
+                        </p>
+                    </div>
+                    
+                    <div class="copy-section">
+                        <h4>Form Data:</h4>
+                        <div id="form-data-output" style="
+                            background: var(--light);
+                            padding: 15px;
+                            border-radius: var(--radius);
+                            margin-top: 15px;
+                            font-family: monospace;
+                            white-space: pre-wrap;
+                            max-height: 300px;
+                            overflow-y: auto;
+                            text-align: left;
+                        "></div>
+                    </div>
+                    
+                    <div class="copy-buttons">
+                        <button class="btn btn-copy" onclick="copyFormData()">
+                            <i class="fas fa-copy"></i> Copy Form Data
+                        </button>
+                        <button class="btn btn-open-form" onclick="openMicrosoftForm()" id="open-form-btn">
+                            <i class="fab fa-microsoft"></i> Open Microsoft Form
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 40px;">
+                        <button class="btn btn-new-order" onclick="startNewOrder()">
+                            <i class="fas fa-plus"></i> Create New Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
